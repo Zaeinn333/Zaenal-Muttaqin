@@ -9,6 +9,8 @@
     <meta name="keywords" content="Al Haramain, Jubah, Thobe, Baju Koko, Pakaian Muslim Pria, Fashion Muslim">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
@@ -47,6 +49,11 @@
             color: var(--secondary-color);
         }
 
+        /* Apply Cinzel Decorative to main headings for a premium look */
+        h1, h2 {
+            font-family: 'Cinzel Decorative', 'Poppins', serif;
+        }
+
         /* --- HEADER / NAVIGATION (Tata Letak Baru, Warna Asli) --- */
         .header {
             display: flex;
@@ -80,6 +87,7 @@
             height: 100%;
             object-fit: cover; /* memastikan gambar mengisi lingkaran */
             display: block;
+
         }
 
         .nav ul {
@@ -242,6 +250,7 @@
             font-weight: 700;
             color: var(--secondary-color); /* Judul menggunakan warna emas */
             margin-bottom: 10px;
+            font-family: 'Cinzel Decorative', 'Poppins', serif; /* Decorative font for hero title */
         }
 
         .hero p {
@@ -276,27 +285,31 @@
 
         .product-gallery h1 {
             color: var(--secondary-color); 
-            font-size: 2.2em;
+            font-size: 2.6em; /* slightly larger for prominence */
             margin-bottom: 40px;
+            font-family: 'Cinzel Decorative', 'Poppins', serif; /* match hero heading */
+            letter-spacing: 0.6px;
         }
 
         .product-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6 columns desktop */
+            gap: 20px;
+            justify-items: center;
+            align-items: start;
         }
         
         .produk {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 10px;
             background: var(--primary-color); /* Kartu produk gelap */
-            width: 300px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+            width: 100%;
+            max-width: 220px; /* slightly narrower so grid fits neatly */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
             transition: transform 0.3s, box-shadow 0.3s;
             text-align: left;
             cursor: pointer;
@@ -309,16 +322,44 @@
         }
 
         .produk img {
-            max-width: 100%;
+            width: 100%;
             border-radius: 8px;
-            height: 300px;
+            max-height: 220px; /* limit height to keep cards consistent */
+            height: auto;
             object-fit: cover;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .produk h3 {
             margin: 10px 0 5px;
             color: var(--secondary-color);
+        }
+        /* Price styling for product cards */
+        .price {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .price-regular {
+            color: rgba(241,241,241,0.75);
+            text-decoration: line-through;
+            font-size: 0.95em;
+        }
+        .price-premium {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+        /* Responsive grid for product gallery */
+        @media (max-width: 1024px) {
+            .product-container { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .product-container { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        }
+        @media (max-width: 480px) {
+            .product-container { grid-template-columns: 1fr; gap: 12px; }
         }
         
         /* --- ORDER FORM SECTION --- */
@@ -336,6 +377,11 @@
             text-align: center;
         }
 
+        /* Make the order heading use Quicksand like the gallery heading */
+        .order-section h2 {
+            font-family: 'Quicksand', 'Poppins', sans-serif;
+        }
+
         .form-container {
             max-width: 600px;
             margin: 0 auto;
@@ -343,6 +389,27 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Form grid to tidy inputs */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 18px;
+            align-items: start;
+        }
+
+        /* Make error messages hidden by default and slightly smaller */
+        .error-message {
+            display: none;
+            color: #ff6b6b;
+            font-size: 0.95em;
+            margin-top: 6px;
+        }
+
+        /* On small screens, stack form fields */
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
         }
 
         .form-group label {
@@ -378,14 +445,107 @@
         
         /* --- FOOTER --- */
         .footer {
-            background-color: #0c1a29;
+            background-color: #071324; /* slightly darker for contrast */
             color: var(--text-light);
-            text-align: center;
-            padding: var(--gap);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 48px 5%;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 28px;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .footer .col {
+            flex: 1 1 220px;
+            min-width: 200px;
+        }
+
+        .footer .about .logo-small {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(224,172,89,0.9);
+            display: inline-block;
+            margin-bottom: 12px;
+            background-color: #ffffff; /* white background */
+            padding: 6px; /* create inner white padding so image sits on white circle */
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        .footer h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .footer p, .footer a, .footer li {
+            color: rgba(241,241,241,0.85);
+            line-height: 1.6;
+        }
+
+        .footer .links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer .links li {
+            margin: 6px 0;
+        }
+
         .footer a {
             color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .footer .contact a { display: inline-block; margin-right: 12px; }
+
+        .footer .social a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            color: var(--text-light);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+        }
+
+        .footer .cta-small {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.95em;
+            color: rgba(241,241,241,0.65);
+        }
+
+        @media (max-width: 768px) {
+            .footer-container { gap: 18px; }
+            .footer { padding: 32px 5%; }
+            .hero h1 { font-size: 2.5em; }
+            .product-gallery h1 { font-size: 1.9em; }
+            .footer-container { flex-direction: column; align-items: center; }
+            .footer .col { text-align: center; }
+            .footer .contact a { margin-right: 8px; }
+            .footer .social a { margin-right: 6px; }
         }
 
         /* --- RESPONSIVENESS (Mobile) --- */
@@ -494,47 +654,50 @@
         <h1>Koleksi Baju Koko dan Jubah</h1>
         <div class="product-container">
             
-            <div class="produk" onclick="isiForm('Thobe RS White', 'Putih', 'image.png')">
-                <img src="image.png" alt="Baju Koko RS White">
-                <h3>Thobe RS White</h3>
-                <p>Desain minimalis dengan bordir sanghai, bahan katun nyaman.</p>
-            </div>
-
-            <div class="produk" onclick="isiForm('Jubah Classic Black', 'Hitam', 'image (2).png')">
-                <img src="image (2).png" alt="Jubah Premium Black">
-                <h3>Jubah Classic Black</h3>
-                <p>Elegan & Berwibawa, kerah band. Klik untuk pesan!</p>
-            </div>
-
-            <div class="produk" onclick="isiForm('Thobe Semi Wool White', 'Putih', 'image (3).png')">
-                <img src="image (3).png" alt="Detail Kerah Semi Wool White">
-                <h3>Thobe Semi Wool White</h3>
-                <p>Material semi wool, kancing premium, kerah kemeja klasik.</p>
-            </div>
-
-            <div class="produk" onclick="isiForm('Thobe Classic Line', 'Abu-abu Tua', 'image (4).jpg')">
-                <img src="image (4).jpg" alt="Detail Kerah Abu-abu">
-                <h3>Thobe Classic Line</h3>
-                <p>Desain garis tegas, kerah berwibawa. Pesan cepat!</p>
-            </div>
-            
-            <div class="produk" onclick="isiForm('Utsman Series Multi Warna', 'Bermacam-macam', 'image (5).jpg')">
-                <img src="image (5).jpg" alt="Utsman Series Multi Warna">
+            <div class="produk" onclick="isiForm('Thobe Utsman White', 'Putih', 'image (3).png')">
+                <img src="image (3).png" alt="Utsman White">
                 <h3>Utsman Series</h3>
-                <p>Koleksi *thobe* band collar dalam beragam warna pilihan.</p>
+                <div class="price"><div class="price-regular">Rp 350.000</div><div class="price-premium">Rp 450.000</div></div>
+                <p>Material semi wool, detail elegan.</p>
             </div>
 
-            <div class="produk" onclick="isiForm('Thobe Semi Wool Brown', 'Cokelat', 'image (6).jpg')">
-                <img src="image (6).jpg" alt="Detail Kerah Cokelat Semi Wool">
-                <h3>Thobe Semi Wool Brown</h3>
-                <p>Warna cokelat eksklusif, detail kancing *diamond look*.</p>
+            <div class="produk" onclick="isiForm('Thobe Brown Premium', 'Cokelat', 'image (6).png')">
+                <img src="image (6).png" alt="Brown Premium">
+                <h3>Series Hamzah</h3>
+                <div class="price"><div class="price-regular">Rp 325.000</div><div class="price-premium">Rp 425.000</div></div>
+                <p>Warna cokelat eksklusif, premium buttons.</p>
             </div>
 
-            <div class="produk" onclick="isiForm('Thobe Series Ali Maroon', 'Merah Maroon', 'image (7).jpg')">
-                <img src="image (7).jpg" alt="Series Ali Maroon Polyester">
-                <h3>Thobe Series Ali Maroon</h3>
-                <p>Bahan polyester mengkilap, tampilan mewah.</p>
+            <div class="produk" onclick="isiForm('Thobe Navy', 'Navy', 'image.png')">
+                <img src="image.png" alt="Navy Thobe">  
+                <h3>Thobe Navy</h3>
+                <div class="price"><div class="price-regular">Rp 300.000</div><div class="price-premium">Rp 400.000</div></div>
+                <p>Sanghai collar, tampilan modern.</p>
             </div>
+
+            <!-- Removed: Utsman Multi, Classic Black, RS White as requested -->
+            
+                <!-- Additional images provided by user (appended, do not modify existing cards) -->
+                <div class="produk" onclick="isiForm('Thobe Umar Dark', 'Charcoal', 'image (4).png')">
+                    <img src="image (4).png" alt="Thobe Umar Dark">
+                    <h3>Umar Series</h3>
+                    <div class="price"><div class="price-regular">Rp 320.000</div><div class="price-premium">Rp 420.000</div></div>
+                    <p>Potongan modern, detail rapi.</p>
+                </div>
+
+                <div class="produk" onclick="isiForm('Thobe Ali Maroon', 'Maroon', 'image (4).png')">
+                    <img src="image (4).png" alt="Thobe Ali Maroon">
+                    <h3>Ali Series</h3>
+                    <div class="price"><div class="price-regular">Rp 330.000</div><div class="price-premium">Rp 430.000</div></div>
+                    <p>Material halus, tampilan mewah.</p>
+                </div>
+
+                <div class="produk" onclick="isiForm('Thobe New Navy', 'Navy', 'image (7).png')">
+                    <img src="image (7).png" alt="Thobe New Navy">
+                    <h3>New Navy</h3>
+                    <div class="price"><div class="price-regular">Rp 300.000</div><div class="price-premium">Rp 380.000</div></div>
+                    <p>Desain klasik dengan sentuhan modern.</p>
+                </div>
 
         </div>
     </section>
@@ -543,66 +706,97 @@
         <h2>Formulir Pemesanan Detail</h2>
         <div class="form-container">
             <form id="orderForm" onsubmit="return validateForm()">
-                
-                <div class="form-group">
-                    <label for="nama_produk">Produk yang Dipesan</label>
-                    <input type="text" id="nama_produk" name="nama_produk" placeholder="Nama Produk (Otomatis Terisi saat Klik Produk)" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="warna_produk">Warna Produk</label>
-                    <input type="text" id="warna_produk" name="warna_produk" placeholder="Warna Produk (Otomatis Terisi saat Klik Produk)" readonly>
-                </div>
-                
-                <hr style="border-color: rgba(255, 255, 255, 0.1); margin: 20px 0;">
 
-                <div class="form-group">
-                    <label for="nama">Nama Lengkap Anda</label>
-                    <input type="text" id="nama" name="nama" placeholder="Contoh: Budi Santoso">
-                    <span class="error-message" id="error_nama">Nama tidak boleh kosong.</span>
-                </div>
+                <!-- Hidden color field (not necessary to show) -->
+                <input type="hidden" id="warna_produk" name="warna_produk" value="">
 
-                <div class="form-group">
-                    <label for="telepon">Nomor WhatsApp/Telepon</label>
-                    <input type="tel" id="telepon" name="telepon" placeholder="Contoh: 08123456789">
-                    <span class="error-message" id="error_telepon">Nomor telepon tidak valid.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="ukuran">Ukuran (Size)</label>
-                    <select id="ukuran" name="ukuran">
-                        <option value="">-- Pilih Ukuran --</option>
-                        <option value="S">S (Small)</option>
-                        <option value="M">M (Medium)</option>
-                        <option value="L">L (Large)</option>
-                        <option value="XL">XL (Extra Large)</option>
-                    </select>
-                    <span class="error-message" id="error_ukuran">Ukuran harus dipilih.</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="jumlah">Jumlah Pemesanan</label>
-                    <input type="number" id="jumlah" name="jumlah" min="1" value="1">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nama_produk">Produk</label>
+                        <input type="text" id="nama_produk" name="nama_produk" placeholder="Klik produk di galeri" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah</label>
+                        <input type="number" id="jumlah" name="jumlah" min="1" value="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" placeholder="Nama Anda">
+                        <span class="error-message" id="error_nama">Nama tidak boleh kosong.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telepon">Nomor WhatsApp</label>
+                        <input type="tel" id="telepon" name="telepon" placeholder="08123456789">
+                        <span class="error-message" id="error_telepon">Nomor telepon tidak valid.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ukuran">Ukuran</label>
+                        <select id="ukuran" name="ukuran">
+                            <option value="">-- Pilih Ukuran --</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                        <span class="error-message" id="error_ukuran">Ukuran harus dipilih.</span>
+                    </div>
                 </div>
 
-                <button type="submit" class="cta-button submit-button">Proses Pemesanan Sekarang</button>
-                <p id="success_message" style="color: lightgreen; text-align: center; margin-top: 15px; display: none;">Pemesanan Anda berhasil dikirim!</p>
+                <div style="text-align:center; margin-top:18px;">
+                    <button type="submit" class="cta-button submit-button">Kirim Pesanan via WhatsApp</button>
+                    <p id="success_message" style="color: lightgreen; text-align: center; margin-top: 12px; display: none;">Pemesanan Anda berhasil dikirim!</p>
+                </div>
 
             </form>
         </div>
     </section>
 
     <footer class="footer" id="contact">
-        <p>Hubungi Kami: <a href="https://wa.me/628123456789">WhatsApp</a> | <a href="mailto:info@alharamain.com">Email</a></p>
-        <p>&copy; 2025 الحرمين. Hak Cipta Dilindungi.</p>
+        <div class="footer-container">
+            <div class="col about">
+                <div class="logo-small"><img src="logo.png" alt="logo" style="width:100%;height:100%;object-fit:cover;"></div>
+                <h4>الحرمين</h4>
+                <p>Premium Muslim wear — elegan, nyaman, dan berkualitas. Pesan langsung lewat WhatsApp untuk layanan cepat.</p>
+                <a class="cta-small" href="#order">Pesan Sekarang</a>
+            </div>
+
+            <div class="col links">
+                <h4>Jelajahi</h4>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#order">Formulir Pesan</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </div>
+
+            <div class="col contact">
+                <h4>Kontak & Sosial</h4>
+                <p>WhatsApp: <a href="https://wa.me/628123456789">+62 812-3456-789</a></p>
+                <p>Email: <a href="mailto:info@alharamain.com">info@alharamain.com</a></p>
+                <div class="social" style="margin-top:10px;">
+                    <a href="#" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="tiktok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">&copy; 2025 الحرمين. Hak Cipta Dilindungi.</div>
     </footer>
 
     <script>
         // Fungsi untuk mengisi Form saat kartu produk di-klik
         function isiForm(namaProduk, warnaProduk, gambarProduk) {
+            // set visible product name and hidden color field
             document.getElementById('nama_produk').value = namaProduk;
-            document.getElementById('warna_produk').value = warnaProduk;
-            
+            var warnaField = document.getElementById('warna_produk');
+            if (warnaField) warnaField.value = warnaProduk || '';
+
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -670,4 +864,4 @@
         });
     </script>
     </body>
-</html>
+</html> 
