@@ -1,867 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الحرمين | Premium Muslim Wear</title>
-    
-    <meta name="description" content="Koleksi Pakaian Muslim Pria Premium dari Al-Haramain. Jubah, Thobe, dan Baju Koko modern.">
-    <meta name="keywords" content="Al Haramain, Jubah, Thobe, Baju Koko, Pakaian Muslim Pria, Fashion Muslim">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        /* --- CSS INLINE DIMULAI DI SINI --- */
-        :root {
-            /* SKEMA WARNA ASLI DIKEMBALIKAN */
-            --primary-color: #0d1b2a;
-            --secondary-color: #e0ac59;
-            --text-light: #f1f1f1;
-            --text-dark: #333333; /* Jarang dipakai, tapi tetap ada */
-            --gap: 20px;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Demo Produk - Al-Haramain</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#f7f7f7}
+    header{background:#1a472a;color:#fff;padding:1rem;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700}
+    .top-actions{display:flex;gap:1rem;align-items:center}
+    #cartIcon{cursor:pointer;position:relative}
+    #cartCount{background:#ff4d4f;color:#fff;border-radius:50%;padding:2px 6px;font-size:12px;position:absolute;top:-8px;right:-8px}
+    main{padding:1rem;max-width:1100px;margin:1rem auto}
+    #productsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem}
+    .product-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.08);cursor:pointer}
+    .product-image{width:100%;height:200px;object-fit:cover}
+    .product-info{padding:0.75rem}
+    .product-price{display:flex;gap:.5rem;align-items:center}
+    .original{text-decoration:line-through;color:#888;font-size:13px}
+    .discount{color:#d23a3a;font-weight:700}
+    .add-to-cart{margin-top:.5rem;padding:.5rem .6rem;background:#1a472a;color:#fff;border:0;border-radius:6px;cursor:pointer}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    /* Cart Modal */
+    #cartModal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center}
+    #cartModal.active{display:flex}
+    .cart-box{background:#fff;width:90%;max-width:680px;border-radius:8px;padding:1rem;position:relative}
+    #cartClose{position:absolute;right:12px;top:12px;cursor:pointer}
+    .cart-item{display:flex;gap:.75rem;border-bottom:1px solid #eee;padding:.5rem 0}
+    .cart-item-image{width:64px;height:64px;object-fit:cover;border-radius:6px}
+    .cart-actions{display:flex;gap:.5rem;align-items:center}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary-color); /* Latar belakang gelap */
-            color: var(--text-light); /* Teks terang */
-            line-height: 1.6;
-            text-align: left; 
-            scroll-behavior: smooth;
-        }
-
-        a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: var(--secondary-color);
-        }
-
-        /* Apply Cinzel Decorative to main headings for a premium look */
-        h1, h2 {
-            font-family: 'Cinzel Decorative', 'Poppins', serif;
-        }
-
-        /* --- HEADER / NAVIGATION (Tata Letak Baru, Warna Asli) --- */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background-color: var(--primary-color); /* fixed variable name */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        /* Bungkus logo sebagai lingkaran agar rapi di header */
-        .logo {
-            width: 80px;
-            height: 80px;
-            background-color: #ffffff; /* abu-abu netral (Tailwind gray-300) */
-            border-radius: 50%; /* membuat lingkaran */
-            display: inline-block;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-            overflow: hidden; /* memotong bagian gambar yang keluar */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid #E0AC59; /* pinggiran emas */
-        }
-
-        .logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* memastikan gambar mengisi lingkaran */
-            display: block;
-
-        }
-
-        .nav ul {
-            list-style: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav ul li {
-            /* remove individual margins, use gap on parent for consistent spacing */
-            margin-left: 0;
-        }
-        
-        .nav ul li a {
-            font-weight: 500;
-            padding: 5px 15px;
-            border-radius: 20px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Nav-bar pill style (mimic attached design) */
-        .nav-bar {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            background: rgba(241,241,241,0.98); /* almost white */
-            padding: 10px 22px;
-            border-radius: 40px;
-            box-shadow: 0 8px 30px rgba(13,27,42,0.08);
-            margin: 6px auto;
-            max-width: 1100px;
-            width: calc(100% - 10%);
-        }
-
-        /* override header spacing so pill sits centered */
-        .header {
-            padding: 12px 5%;
-            background-color: transparent; /* keep page background visible */
-            border-bottom: none;
-        }
-
-        .nav-bar .nav ul {
-            display: flex;
-            gap: 20px; /* consistent spacing between items */
-            margin-left: 6px;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* make each menu item take equal space so gaps look even */
-        .nav-bar .nav ul li {
-            flex: 1 1 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-bar .nav ul li a {
-            color: var(--text-dark); /* dark text on pill */
-            background: transparent;
-            padding: 10px 6px; /* smaller horizontal padding since items are equal-width */
-            border-radius: 999px;
-            display: inline-block;
-            width: 100%;
-            text-align: center;
-            white-space: nowrap; /* keep multi-word items on one line */
-        }
-
-        .nav-bar .nav ul li a.active,
-        .nav-bar .nav ul li a:hover {
-            background: var(--secondary-color);
-            color: var(--primary-color);
-        }
-
-        /* make pill responsive */
-        @media (max-width: 768px) {
-            .nav-bar { width: calc(100% - 40px); padding: 8px 14px; gap: 10px; }
-            .nav-bar .nav ul { gap: 8px; }
-            /* on mobile, let items size naturally (no equal-width) */
-            .nav-bar .nav ul li { flex: initial; }
-            .nav-bar .nav ul li a { padding: 8px 12px; font-size: 0.95em; }
-            .logo { width: 45px; height: 45px; border-width: 2px; }
-        }
-
-        .nav ul li a:hover,
-        .nav ul li a.active {
-            background-color: var(--secondary-color); /* Latar belakang emas/krem saat aktif/hover */
-            color: var(--primary-color); /* Teks gelap di atas latar belakang emas */
-        }
-
-        /* --- HERO SECTION (Tata Letak Baru, Warna Asli) --- */
-        .hero {
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            padding: 0 5%;
-            background-color: var(--primary-color); 
-            text-align: left;
-            position: relative;
-        }
-        
-        .hero-container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .hero-content {
-            width: 50%;
-            padding-right: 5%; 
-        }
-        
-        /* Buat hero image menjadi lingkaran */
-        .hero-image-box {
-            width: 480px;
-            height: 480px;
-            position: relative;
-            background-color: #1a2a3b; /* Warna latar belakang sedikit lebih terang dari primary */
-            border-radius: 50%; /* ubah jadi lingkaran */
-            overflow: hidden;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
-            border: 4px solid #E0AC59; /* pinggiran emas tegas */
-            flex-shrink: 0;
-            margin-left: 20px;
-        }
-        
-        .hero-image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top; /* fokus bagian atas gambar */
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* Dekorasi foto di sekitar hero (desktop only) */
-        .hero-decor {
-            position: absolute;
-            pointer-events: none;
-            z-index: 5;
-            transition: transform 0.3s ease;
-        }
-
-    .hero-decor.img1 { width: 130px; right: 58%; top: -20px; transform: rotate(-6deg); }
-        .hero-decor.img2 { width: 140px; left: -60px; bottom: -30px; transform: rotate(8deg); }
-        .hero-decor.img3 { width: 120px; right: -50px; top: 120px; transform: rotate(-10deg); }
-
-    /* Hero figure container to position decor relative to hero circle */
-    .hero-figure { position: relative; width: 480px; height: 480px; flex-shrink: 0; }
-
-    .hero-decor { border-radius: 50%; overflow: hidden; object-fit: cover; border: 3px solid rgba(224,172,89,0.85); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-
-
-        .hero h1 {
-            font-size: 3.2em;
-            font-weight: 700;
-            color: var(--secondary-color); /* Judul menggunakan warna emas */
-            margin-bottom: 10px;
-            font-family: 'Cinzel Decorative', 'Poppins', serif; /* Decorative font for hero title */
-        }
-
-        .hero p {
-            color: var(--text-light);
-            margin-bottom: 30px;
-            max-width: 400px;
-        }
-
-        .cta-button {
-            background-color: var(--secondary-color);
-            color: var(--primary-color); /* Teks gelap di atas tombol emas */
-            padding: 15px 35px;
-            border-radius: 30px; 
-            font-weight: 600;
-            display: inline-block;
-            transition: background-color 0.3s, transform 0.2s;
-            text-transform: uppercase;
-        }
-        
-        .cta-button:hover {
-            background-color: #f0c375;
-            transform: translateY(-2px);
-        }
-
-        /* --- PRODUCT GALLERY --- */
-        .product-gallery {
-            padding: 80px 5%;
-            text-align: center;
-            background-color: #1a2a3b; /* Background produk sedikit berbeda */
-            color: var(--text-light);
-        }
-
-        .product-gallery h1 {
-            color: var(--secondary-color); 
-            font-size: 2.6em; /* slightly larger for prominence */
-            margin-bottom: 40px;
-            font-family: 'Cinzel Decorative', 'Poppins', serif; /* match hero heading */
-            letter-spacing: 0.6px;
-        }
-
-        .product-container {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr); /* 6 columns desktop */
-            gap: 20px;
-            justify-items: center;
-            align-items: start;
-        }
-        
-        .produk {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 10px;
-            background: var(--primary-color); /* Kartu produk gelap */
-            width: 100%;
-            max-width: 220px; /* slightly narrower so grid fits neatly */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: left;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .produk:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(224, 172, 89, 0.5); /* Shadow emas */
-        }
-
-        .produk img {
-            width: 100%;
-            border-radius: 8px;
-            max-height: 220px; /* limit height to keep cards consistent */
-            height: auto;
-            object-fit: cover;
-            margin-bottom: 8px;
-        }
-
-        .produk h3 {
-            margin: 10px 0 5px;
-            color: var(--secondary-color);
-        }
-        /* Price styling for product cards */
-        .price {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .price-regular {
-            color: rgba(241,241,241,0.75);
-            text-decoration: line-through;
-            font-size: 0.95em;
-        }
-        .price-premium {
-            color: var(--secondary-color);
-            font-weight: 700;
-            font-size: 1.05em;
-        }
-        /* Responsive grid for product gallery */
-        @media (max-width: 1024px) {
-            .product-container { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .product-container { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-        }
-        @media (max-width: 480px) {
-            .product-container { grid-template-columns: 1fr; gap: 12px; }
-        }
-        
-        /* --- ORDER FORM SECTION --- */
-        .order-section {
-            padding: 80px 5%;
-            background-color: var(--primary-color);
-            text-align: left;
-            color: var(--text-light);
-        }
-
-        .order-section h2 {
-            font-size: 2em;
-            color: var(--secondary-color);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* Make the order heading use Quicksand like the gallery heading */
-        .order-section h2 {
-            font-family: 'Quicksand', 'Poppins', sans-serif;
-        }
-
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #1a2a3b;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Form grid to tidy inputs */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px 18px;
-            align-items: start;
-        }
-
-        /* Make error messages hidden by default and slightly smaller */
-        .error-message {
-            display: none;
-            color: #ff6b6b;
-            font-size: 0.95em;
-            margin-top: 6px;
-        }
-
-        /* On small screens, stack form fields */
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-        }
-
-        .form-group label {
-            color: var(--text-light);
-        }
-
-        .form-group input, .form-group select {
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            background: #0c1a29;
-            color: var(--text-light);
-            font-size: 1em;
-            outline: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-        
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 5px var(--secondary-color);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .error-message {
-            color: red;
-            text-align: left;
-        }
-        
-        /* --- FOOTER --- */
-        .footer {
-            background-color: #071324; /* slightly darker for contrast */
-            color: var(--text-light);
-            padding: 48px 5%;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 28px;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .footer .col {
-            flex: 1 1 220px;
-            min-width: 200px;
-        }
-
-        .footer .about .logo-small {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid rgba(224,172,89,0.9);
-            display: inline-block;
-            margin-bottom: 12px;
-            background-color: #ffffff; /* white background */
-            padding: 6px; /* create inner white padding so image sits on white circle */
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-        }
-
-        .footer h4 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-            font-size: 1.05em;
-        }
-
-        .footer p, .footer a, .footer li {
-            color: rgba(241,241,241,0.85);
-            line-height: 1.6;
-        }
-
-        .footer .links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer .links li {
-            margin: 6px 0;
-        }
-
-        .footer a {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-
-        .footer .contact a { display: inline-block; margin-right: 12px; }
-
-        .footer .social a {
-            display: inline-block;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.03);
-            color: var(--text-light);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 8px;
-        }
-
-        .footer .cta-small {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 10px 18px;
-            border-radius: 8px;
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 0.95em;
-            color: rgba(241,241,241,0.65);
-        }
-
-        @media (max-width: 768px) {
-            .footer-container { gap: 18px; }
-            .footer { padding: 32px 5%; }
-            .hero h1 { font-size: 2.5em; }
-            .product-gallery h1 { font-size: 1.9em; }
-            .footer-container { flex-direction: column; align-items: center; }
-            .footer .col { text-align: center; }
-            .footer .contact a { margin-right: 8px; }
-            .footer .social a { margin-right: 6px; }
-        }
-
-        /* --- RESPONSIVENESS (Mobile) --- */
-        @media (max-width: 768px) {
-            .logo {
-                width: 45px;
-                height: 45px;
-            }
-
-            .logo-img {
-                width: 100%;
-                height: 100%;
-            }
-            .nav {
-                display: none; 
-            }
-            
-            .hero {
-                min-height: 80vh;
-                padding-top: 40px;
-            }
-            
-            .hero-container {
-                flex-direction: column; 
-            }
-
-            .hero-content, .hero-image-box {
-                width: 100%;
-                padding: 0;
-            }
-            
-            .hero-image-box {
-                order: -1; 
-                margin-bottom: 30px;
-                width: 100%;
-                height: 350px;
-                border-radius: 20px; /* kembalikan ke rectangle dengan sudut bulat */
-                border: 3px solid #E0AC59; /* border emas tipis di mobile */
-            }
-
-            /* sembunyikan dekorasi di mobile agar tidak memenuhi layar */
-            .hero-decor { display: none; }
-
-            .hero h1 {
-                font-size: 2.5em;
-                text-align: center;
-            }
-            .hero p {
-                text-align: center;
-                max-width: 100%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .cta-button {
-                display: block;
-                width: 80%;
-                margin: 20px auto 0;
-            }
-        }
-        /* --- CSS INLINE SELESAI --- */
-    </style>
+    /* Simple responsive */
+    @media (max-width:480px){.product-image{height:140px}}
+  </style>
 </head>
 <body>
+  <header>
+    <div class="brand">Al-Haramain - Demo</div>
+    <div class="top-actions">
+      <div id="cartIcon">Keranjang <span id="cartCount">0</span></div>
+    </div>
+  </header>
 
-    <header class="header">
-        <div class="nav-bar">
-            <div class="logo">
-                <img src="logo.png" alt="Logo Al-Haramain" class="logo-img">
-            </div>
-            
-            <nav class="nav">
-                <ul>
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#products">Produk</a></li>
-                    <li><a href="#order">Pesan Sekarang</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero" id="home">
-        <div class="hero-container">
-            
-            <div class="hero-content">
-                <h1>Koleksi Abadi & Berwibawa</h1>
-                <p>Temukan kualitas premium dari Al-Haramain. Elegansi modern dan kenyamanan untuk pria Muslim sejati.</p>
-                <a href="#products" class="cta-button">Jelajahi Koleksi</a>
-            </div>
-            
-            <div class="hero-figure">
-                <div class="hero-image-box">
-                    <img src="image (5).png" alt="Thobe Premium White">
-                </div>
-                <!-- Decorative images placed around hero (desktop) -->
-                <img src="image (1).png" alt="decor1" class="hero-decor img1">
-                <img src="image (2).png" alt="decor2" class="hero-decor img2">
-                <img src="image (8).png" alt="decor3" class="hero-decor img3">
-            </div>
-            
-        </div>
+  <main>
+    <section>
+      <h2>Produk</h2>
+      <div id="productsGrid"></div>
     </section>
-    
-    <section class="product-gallery" id="products">
-        <h1>Koleksi Baju Koko dan Jubah</h1>
-        <div class="product-container">
-            
-            <div class="produk" onclick="isiForm('Thobe Utsman White', 'Putih', 'image (3).png')">
-                <img src="image (3).png" alt="Utsman White">
-                <h3>Utsman Series</h3>
-                <div class="price"><div class="price-regular">Rp 350.000</div><div class="price-premium">Rp 450.000</div></div>
-                <p>Material semi wool, detail elegan.</p>
-            </div>
+  </main>
 
-            <div class="produk" onclick="isiForm('Thobe Brown Premium', 'Cokelat', 'image (6).png')">
-                <img src="image (6).png" alt="Brown Premium">
-                <h3>Series Hamzah</h3>
-                <div class="price"><div class="price-regular">Rp 325.000</div><div class="price-premium">Rp 425.000</div></div>
-                <p>Warna cokelat eksklusif, premium buttons.</p>
-            </div>
+  <!-- Cart Modal -->
+  <div id="cartModal">
+    <div class="cart-box">
+      <div id="cartClose">Tutup ✕</div>
+      <h3>Keranjang Anda</h3>
+      <div id="cartItemsContainer"></div>
+      <div style="text-align:right;margin-top:1rem">Total: <strong id="cartTotalPrice">Rp 0</strong></div>
+    </div>
+  </div>
 
-            <div class="produk" onclick="isiForm('Thobe Navy', 'Navy', 'image.png')">
-                <img src="image.png" alt="Navy Thobe">  
-                <h3>Thobe Navy</h3>
-                <div class="price"><div class="price-regular">Rp 300.000</div><div class="price-premium">Rp 400.000</div></div>
-                <p>Sanghai collar, tampilan modern.</p>
-            </div>
+  <script>
+    // Data produk (diambil dari Indexhtml.txt)
+    const productsData = [
+        { id:1, name:"UTSMAN Series", originalPrice:450000, discountPrice:350000, desc:"Material semi wool, detail elegan.", image:"https://placehold.co/300x300/1a472a/white?text=UTSMAN+Series", category:"baju koko"},
+        { id:2, name:"Hamzah Series", originalPrice:425000, discountPrice:325000, desc:"Warna cokelat eksklusif, premium buttons.", image:"https://placehold.co/300x300/2d6a4f/white?text=Hamzah+Series", category:"baju koko"},
+        { id:3, name:"Thobe Navy", originalPrice:400000, discountPrice:300000, desc:"Shanghai collar, tampilan modern.", image:"https://placehold.co/300x300/c9a03d/white?text=Thobe+Navy", category:"jubah"},
+        { id:4, name:"Umar Series", originalPrice:420000, discountPrice:320000, desc:"Potongan modern, detail rapi.", image:"https://placehold.co/300x300/1a472a/white?text=Umar+Series", category:"baju koko"},
+        { id:5, name:"Ali Series", originalPrice:430000, discountPrice:330000, desc:"Material halus, tampilan mewah.", image:"https://placehold.co/300x300/2d6a4f/white?text=Ali+Series", category:"baju koko"},
+        { id:6, name:"New Navy", originalPrice:380000, discountPrice:300000, desc:"Desain klasik dengan sentuhan modern.", image:"https://placehold.co/300x300/c9a03d/white?text=New+Navy", category:"jubah"}
+    ];
 
-            <!-- Removed: Utsman Multi, Classic Black, RS White as requested -->
-            
-                <!-- Additional images provided by user (appended, do not modify existing cards) -->
-                <div class="produk" onclick="isiForm('Thobe Umar Dark', 'Charcoal', 'image (4).png')">
-                    <img src="image (4).png" alt="Thobe Umar Dark">
-                    <h3>Umar Series</h3>
-                    <div class="price"><div class="price-regular">Rp 320.000</div><div class="price-premium">Rp 420.000</div></div>
-                    <p>Potongan modern, detail rapi.</p>
-                </div>
+    // State
+    let cart = [];
 
-                <div class="produk" onclick="isiForm('Thobe Ali Maroon', 'Maroon', 'image (4).png')">
-                    <img src="image (4).png" alt="Thobe Ali Maroon">
-                    <h3>Ali Series</h3>
-                    <div class="price"><div class="price-regular">Rp 330.000</div><div class="price-premium">Rp 430.000</div></div>
-                    <p>Material halus, tampilan mewah.</p>
-                </div>
+    // Elements
+    const productsGrid = document.getElementById('productsGrid');
+    const cartIcon = document.getElementById('cartIcon');
+    const cartModal = document.getElementById('cartModal');
+    const cartClose = document.getElementById('cartClose');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const cartTotalPrice = document.getElementById('cartTotalPrice');
+    const cartCount = document.getElementById('cartCount');
 
-                <div class="produk" onclick="isiForm('Thobe New Navy', 'Navy', 'image (7).png')">
-                    <img src="image (7).png" alt="Thobe New Navy">
-                    <h3>New Navy</h3>
-                    <div class="price"><div class="price-regular">Rp 300.000</div><div class="price-premium">Rp 380.000</div></div>
-                    <p>Desain klasik dengan sentuhan modern.</p>
-                </div>
+    function formatRupiah(amount){return 'Rp '+ amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+    function saveCart(){localStorage.setItem('alharamainCart', JSON.stringify(cart))}
+    function loadCart(){const s=localStorage.getItem('alharamainCart'); if(s){cart=JSON.parse(s); updateCartUI()}}
 
+    function renderProducts(){
+      productsGrid.innerHTML = productsData.map(p=>`
+        <div class="product-card" data-id="${p.id}">
+          <img class="product-image" src="${p.image}" alt="${p.name}">
+          <div class="product-info">
+            <h4 class="product-title">${p.name}</h4>
+            <div class="product-price"><span class="original">${formatRupiah(p.originalPrice)}</span><span class="discount">${formatRupiah(p.discountPrice)}</span></div>
+            <p style="font-size:13px;color:#555">${p.desc}</p>
+            <button class="add-to-cart" data-id="${p.id}">Tambah ke Keranjang</button>
+          </div>
         </div>
-    </section>
-    
-    <section class="order-section" id="order">
-        <h2>Formulir Pemesanan Detail</h2>
-        <div class="form-container">
-            <form id="orderForm" onsubmit="return validateForm()">
+      `).join('');
 
-                <!-- Hidden color field (not necessary to show) -->
-                <input type="hidden" id="warna_produk" name="warna_produk" value="">
+      document.querySelectorAll('.add-to-cart').forEach(btn=>btn.addEventListener('click', (e)=>{e.stopPropagation(); addToCart(parseInt(btn.dataset.id))}));
+    }
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="nama_produk">Produk</label>
-                        <input type="text" id="nama_produk" name="nama_produk" placeholder="Klik produk di galeri" readonly>
-                    </div>
+    function addToCart(productId){
+      const prod = productsData.find(x=>x.id===productId); if(!prod) return;
+      const ex = cart.find(i=>i.id===productId);
+      if(ex) ex.quantity++;
+      else cart.push({id:prod.id, name:prod.name, price:prod.discountPrice, image:prod.image, quantity:1});
+      saveCart(); updateCartUI(); alert(prod.name + ' ditambahkan ke keranjang');
+    }
 
-                    <div class="form-group">
-                        <label for="jumlah">Jumlah</label>
-                        <input type="number" id="jumlah" name="jumlah" min="1" value="1">
-                    </div>
+    function updateCartUI(){
+      const totalItems = cart.reduce((s,i)=>s+i.quantity,0); cartCount.textContent = totalItems;
+      if(cart.length===0){cartItemsContainer.innerHTML='<div style="padding:1rem;text-align:center">Keranjang kosong</div>'; cartTotalPrice.textContent=formatRupiah(0); return}
+      let html=''; let total=0;
+      cart.forEach(item=>{ const sub=item.price*item.quantity; total+=sub; html+=`<div class="cart-item" data-id="${item.id}"><img class="cart-item-image" src="${item.image}"><div style="flex:1"><div>${item.name}</div><div style="color:#666">${formatRupiah(item.price)}</div><div class="cart-actions"><button data-id="${item.id}" class="minus">-</button><span style="padding:0 .5rem">${item.quantity}</span><button data-id="${item.id}" class="plus">+</button></div></div><div style="cursor:pointer;color:#c00" data-id="${item.id}" class="del">Hapus</div></div>`});
+      cartItemsContainer.innerHTML = html; cartTotalPrice.textContent = formatRupiah(total);
 
-                    <div class="form-group">
-                        <label for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" placeholder="Nama Anda">
-                        <span class="error-message" id="error_nama">Nama tidak boleh kosong.</span>
-                    </div>
+      document.querySelectorAll('.minus').forEach(b=>b.addEventListener('click',()=>{updateQuantity(parseInt(b.dataset.id), -1)}));
+      document.querySelectorAll('.plus').forEach(b=>b.addEventListener('click',()=>{updateQuantity(parseInt(b.dataset.id), 1)}));
+      document.querySelectorAll('.del').forEach(b=>b.addEventListener('click',()=>{removeFromCart(parseInt(b.dataset.id))}));
+    }
 
-                    <div class="form-group">
-                        <label for="telepon">Nomor WhatsApp</label>
-                        <input type="tel" id="telepon" name="telepon" placeholder="08123456789">
-                        <span class="error-message" id="error_telepon">Nomor telepon tidak valid.</span>
-                    </div>
+    function updateQuantity(id, change){ const idx=cart.findIndex(i=>i.id===id); if(idx===-1) return; cart[idx].quantity+=change; if(cart[idx].quantity<=0) cart.splice(idx,1); saveCart(); updateCartUI() }
+    function removeFromCart(id){ cart=cart.filter(i=>i.id!==id); saveCart(); updateCartUI(); }
 
-                    <div class="form-group">
-                        <label for="ukuran">Ukuran</label>
-                        <select id="ukuran" name="ukuran">
-                            <option value="">-- Pilih Ukuran --</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                        <span class="error-message" id="error_ukuran">Ukuran harus dipilih.</span>
-                    </div>
-                </div>
+    // Events
+    if(cartIcon){cartIcon.addEventListener('click', ()=>{cartModal.classList.add('active'); updateCartUI()})}
+    if(cartClose){cartClose.addEventListener('click', ()=>{cartModal.classList.remove('active')})}
+    if(cartModal){cartModal.addEventListener('click', e=>{ if(e.target===cartModal) cartModal.classList.remove('active') })}
 
-                <div style="text-align:center; margin-top:18px;">
-                    <button type="submit" class="cta-button submit-button">Kirim Pesanan via WhatsApp</button>
-                    <p id="success_message" style="color: lightgreen; text-align: center; margin-top: 12px; display: none;">Pemesanan Anda berhasil dikirim!</p>
-                </div>
-
-            </form>
-        </div>
-    </section>
-
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <div class="col about">
-                <div class="logo-small"><img src="logo.png" alt="logo" style="width:100%;height:100%;object-fit:cover;"></div>
-                <h4>الحرمين</h4>
-                <p>Premium Muslim wear — elegan, nyaman, dan berkualitas. Pesan langsung lewat WhatsApp untuk layanan cepat.</p>
-                <a class="cta-small" href="#order">Pesan Sekarang</a>
-            </div>
-
-            <div class="col links">
-                <h4>Jelajahi</h4>
-                <ul>
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#products">Produk</a></li>
-                    <li><a href="#order">Formulir Pesan</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                </ul>
-            </div>
-
-            <div class="col contact">
-                <h4>Kontak & Sosial</h4>
-                <p>WhatsApp: <a href="https://wa.me/628123456789">+62 812-3456-789</a></p>
-                <p>Email: <a href="mailto:info@alharamain.com">info@alharamain.com</a></p>
-                <div class="social" style="margin-top:10px;">
-                    <a href="#" aria-label="instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="tiktok"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">&copy; 2025 الحرمين. Hak Cipta Dilindungi.</div>
-    </footer>
-
-    <script>
-        // Fungsi untuk mengisi Form saat kartu produk di-klik
-        function isiForm(namaProduk, warnaProduk, gambarProduk) {
-            // set visible product name and hidden color field
-            document.getElementById('nama_produk').value = namaProduk;
-            var warnaField = document.getElementById('warna_produk');
-            if (warnaField) warnaField.value = warnaProduk || '';
-
-            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Fungsi Validasi Formulir (JS) - Tetap sama
-        function validateForm() {
-            let isValid = true;
-            
-            const namaProduk = document.getElementById('nama_produk').value;
-            const nama = document.getElementById('nama').value;
-            const telepon = document.getElementById('telepon').value;
-            const ukuran = document.getElementById('ukuran').value;
-            
-            document.getElementById('error_nama').style.display = 'none';
-            document.getElementById('error_telepon').style.display = 'none';
-            document.getElementById('error_ukuran').style.display = 'none';
-            document.getElementById('success_message').style.display = 'none';
-            
-            if (namaProduk.trim() === "") {
-                alert("Harap pilih produk dari galeri di atas dengan mengklik gambarnya terlebih dahulu!");
-                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-                isValid = false;
-            }
-
-            if (nama.trim() === "") {
-                document.getElementById('error_nama').style.display = 'block';
-                isValid = false;
-            }
-
-            if (telepon.trim().length < 8 || isNaN(telepon)) {
-                document.getElementById('error_telepon').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (ukuran === "") {
-                document.getElementById('error_ukuran').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (!isValid) {
-                return false;
-            }
-
-            const jumlah = document.getElementById('jumlah').value;
-            const pesanWhatsapp = `Halo, saya ingin memesan produk Al-Haramain:\n\n*Produk:* ${namaProduk}\n*Warna:* ${document.getElementById('warna_produk').value}\n*Ukuran:* ${ukuran}\n*Jumlah:* ${jumlah}\n*Nama Pemesan:* ${nama}\n*Telepon:* ${telepon}`;
-
-            const waLink = `https://wa.me/628123456789?text=${encodeURIComponent(pesanWhatsapp)}`;
-            window.open(waLink, '_blank');
-            
-            document.getElementById('success_message').style.display = 'block';
-            document.getElementById('orderForm').reset();
-            
-            return false;
-        }
-        
-        // Agar tombol Go Live berfungsi dan navigasi smooth
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
-    </body>
-</html> 
+    // Init
+    renderProducts(); loadCart();
+  </script>
+</body>
+</html>
